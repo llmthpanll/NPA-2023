@@ -1,6 +1,6 @@
 """pexpect"""
 import pexpect
-# pip install pexpect
+
 def main():
     """pexpect"""
     promt = '#'
@@ -8,8 +8,14 @@ def main():
     username = 'admin'
     password = 'cisco'
     command = 'show ip int brief'
+
+    # child = pexpect.spawn('telnet ' + ip)
+    child = pexpect.spawn('telnet ' + ip, encoding='utf-8')
     
-    child = pexpect.spawn('telnet ' + ip)
+    # pexpect.popen_spawn.PopenSpawn
+    # child = pexpect.popen_spawn.PopenSpawn('telnet ' + ip)
+    # child = pexpect.popen_spawn.PopenSpawn('telnet ' + ip, timeout=10)
+    
     child.expect('Username:')
     child.sendline(username)
     child.expect('Password:')
@@ -22,4 +28,5 @@ def main():
     print()
     print(result.decode('utf-8'))
     child.sendline('exit')
+
 main()
