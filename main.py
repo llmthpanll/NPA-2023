@@ -10,8 +10,8 @@ def main():
     command = 'show ip int brief'
 
     # child = pexpect.spawn('telnet ' + ip)
-    child = pexpect.spawn('telnet ' + ip, encoding='utf-8')
-    
+    # child = pexpect.spawn('telnet ' + ip, encoding='utf-8')
+    child = pexpect.spawn('telnet ' + ip)
     # pexpect.popen_spawn.PopenSpawn
     # child = pexpect.popen_spawn.PopenSpawn('telnet ' + ip)
     # child = pexpect.popen_spawn.PopenSpawn('telnet ' + ip, timeout=10)
