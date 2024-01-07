@@ -4,22 +4,28 @@ import pexpect
 def main():
     """pexpect"""
     PROMPT = '#'
-    ip = '172.31.109.1'
-    username = 'admin'
-    password = 'cisco'
-    command = 'show ip int brief'
-    child = pexpect.spawn('telnet ' + ip)
+    IP = '172.31.109.3'
+    USERNAME = 'admin'
+    PASSWORD = 'cisco'
+    COMMAND = ['show ip int br', 'configure terminal']
+    
+    child = pexpect.spawn('telnet ' + IP)
     child.expect('Username:')
-    child.sendline(username)
+    child.sendline(USERNAME)
     child.expect('Password:')
-    child.sendline(password)
+    child.sendline(PASSWORD)
     child.expect(PROMPT)
-    child.sendline(command)
+    
+    # for i in range(len(COMMAND)):
+    #     child.sendline(COMMAND[i])
+    #     child.expect(PROMPT)
+    child.sendline(COMMAND[1])
     child.expect(PROMPT)
     result = child.before
-    print(result)
-    print()
+    # print(result)
+    # print()
     print(result.decode('utf-8'))
     child.sendline('exit')
+    # child.sendline('exit')
 
 main()

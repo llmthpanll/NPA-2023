@@ -8,7 +8,8 @@ def main():
     username = 'admin'
     password = 'cisco'
     command = 'show ip int brief'
-    child = wexpect.spawn('telnet ' + ip)
+    # child = wexpect.spawn('telnet ' + ip)
+    child = wexpect.spawn('telnet ' + ip) # type: ignore
     child.expect('Username:')
     child.sendline(username)
     child.expect('Password:')
