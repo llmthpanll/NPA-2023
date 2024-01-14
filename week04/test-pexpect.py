@@ -4,7 +4,7 @@ import pexpect
 def main():
     """pexpect"""
     PROMPT = '#'
-    IP = '172.31.109.3'
+    IP = '172.31.106.1'
     USERNAME = 'admin'
     PASSWORD = 'cisco'
     COMMAND = ['show ip int br', 'configure terminal']
@@ -19,7 +19,7 @@ def main():
     # for i in range(len(COMMAND)):
     #     child.sendline(COMMAND[i])
     #     child.expect(PROMPT)
-    child.sendline(COMMAND[1])
+    child.sendline(COMMAND[0])
     child.expect(PROMPT)
     result = child.before
     # print(result)
