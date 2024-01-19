@@ -1,0 +1,2 @@
+# Enter the hosts or devices for Ansible playbooks
+R0-9 ansible_user=admin ansible_password=cisco ansible_host=172.31.109.1
