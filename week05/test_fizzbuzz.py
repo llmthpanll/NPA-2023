@@ -18,6 +18,7 @@ def test_fizzbuzz():
     assert fizzbuzz(13) == 13
     assert fizzbuzz(14) == 14
     assert fizzbuzz(15) == "fizzbuzz"
+    print("all tests are passed")
     
 if __name__ == "__main__":
     test_fizzbuzz()
