@@ -1,4 +1,4 @@
-/week11/.terraform
-/week11/terraform.tfstate
-/week11/terraform.tfstate.backup
-/week11/.terraform.lock.hcl
+.terraform
+terraform.tfstate
+terraform.tfstate.backup
+.terraform.lock.hcl
