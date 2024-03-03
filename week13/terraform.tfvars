@@ -1,0 +1,9 @@
+aws_access_key = "ASIAW3MEELGI5VEFIFAE"
+
+aws_secret_key = "RbBcI1R6nQUW6xxvzbO7HMY9gy8qbTFYYGUnGwsQ"
+
+aws_session_token = "FwoGZXIvYXdzEHMaDIVhyT2sclHuuRSKCiLFAZu+YL++W6CVFX+tIx2B3Mtkx2iaJOWUj50RRosmHGgFJtrQ2qD0v3MNuK/whXMxFZjpza1Mk/ZvtZBy+5LKtx48Q7zscsT4QbFSCdyEVbqd7UNz1D3ZYF1NT7Dg/d9ftGPbYm+semXkkFmfALoLRFFcTIdIacdt4qec+BcYx2l25LXD0q8O7Aa7QLs3E6MIJqwwBRixHBpdLnH1PE6OI57ETVPTuBfnx1MX1XdWs6PFxAoZFyQFvT8DS079BVOtpykfpsFlKJKCka8GMi1Zu1dNsE5eVb+4qTnNWZdngAOECOapH0g4dG3eErB4JCewFZDJ1ghuE24PGRA="
+
+key_name = "vockey"
+
+default_region = "us-east-1"
