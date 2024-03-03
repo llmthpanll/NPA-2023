@@ -7,24 +7,23 @@ variable "aws_secret_key" {}
 variable "aws_session_token" {}
 variable "default_region" {}
 variable "key_name" {}
+variable "default_name" {
+  default     = "itkmitl"
+}
 
 ##################################################################################
 # locals
 ##################################################################################
 
 locals {
-  common_tags = {
-    Name = "itkmitl-npa2024"
-  }
-
-  itkmitl_tags = {
-    Owner = "itkmitl"
+  default_tags = {
+    itclass = "npa24"
+    itgroup = "year3"
   }
 }
 ##################################################################################
 # PROVIDERS
 ##################################################################################
-
 provider "aws" {
   access_key = var.aws_access_key
   secret_key = var.aws_secret_key
@@ -64,20 +63,21 @@ data "aws_ami" "aws-linux" {
 # RESOURCES
 ##################################################################################
 
+
 resource "aws_vpc" "testVPC" {
   cidr_block = "10.0.0.0/16"
   enable_dns_hostnames = true
-
-  tags = {
-    Name = "testVPC"
-  }
+  # tags = local.default_tags
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-testVPC"
+  })
 }
 
 resource "aws_internet_gateway" "testIGW" {
   vpc_id = aws_vpc.testVPC.id
-  tags = {
-    Name = "testIGW"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-testIGW"
+  })
 }
 
 resource "aws_subnet" "Public1" {
@@ -86,9 +86,9 @@ resource "aws_subnet" "Public1" {
   availability_zone = "us-east-1b"
   map_public_ip_on_launch = true
   depends_on = [aws_internet_gateway.testIGW]
-  tags = {
-    Name = "Public1"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-Public1"
+  })
 }
 
 resource "aws_subnet" "Public2" {
@@ -97,9 +97,9 @@ resource "aws_subnet" "Public2" {
   availability_zone = "us-east-1c"
   map_public_ip_on_launch = true
   depends_on = [aws_internet_gateway.testIGW]
-  tags = {
-    Name = "Public2"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-Public2"
+  })
 }
 
 resource "aws_route_table" "PublicRouteTable" {
@@ -108,9 +108,9 @@ resource "aws_route_table" "PublicRouteTable" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.testIGW.id
   }
-  tags = {
-    Name = "PublicRouteTable"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-PublicRouteTable"
+  })
 }
 
 resource "aws_route_table_association" "Public1RouteTableAssociation" {
@@ -145,9 +145,9 @@ resource "aws_security_group" "AllowSSHandWeb" {
     protocol    = -1
     cidr_blocks = ["0.0.0.0/0"]
   }
-  tags = {
-    Name = "AllowSSHandWeb"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-AllowSSHandWeb"
+  })
 }
 
 resource "aws_instance" "Server1" {
@@ -160,9 +160,9 @@ resource "aws_instance" "Server1" {
     volume_size = 8
     volume_type = "gp2"
   }
-  tags = {
-    Name = "Server1"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-Server1"
+  })
 }
 
 resource "aws_instance" "Server2" {
@@ -175,23 +175,21 @@ resource "aws_instance" "Server2" {
     volume_size = 8
     volume_type = "gp2"
   }
-  # tags = local.common_tags
-  tags = {
-    Name = "Server2"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-Server2"
+  })
 }
 
 resource "aws_lb" "elb-webLB" {
-  name               = "elb-webLB"
+  name               = "${var.default_name}-elb-webLB"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.AllowSSHandWeb.id]
   subnets            = [aws_subnet.Public1.id, aws_subnet.Public2.id]
   enable_deletion_protection = false
-  tags = {
-    Name = "elb-webLB"
-    Environment = "production"
-  }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-elb-webLB"
+  })
 }
 
 resource "aws_lb_target_group" "EC2TargetGroup" {
@@ -212,6 +210,9 @@ resource "aws_lb_target_group" "EC2TargetGroup" {
   target_health_state {
     enable_unhealthy_connection_termination = false
   }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-EC2TargetGroup"
+  })
 }
 
 resource "aws_lb_target_group_attachment" "lb-attachment1" {
@@ -235,6 +236,9 @@ resource "aws_lb_listener" "lb_listener_http" {
     target_group_arn = aws_lb_target_group.EC2TargetGroup.arn
     type             = "forward"
   }
+  tags = merge(local.default_tags,{
+    Name = "${var.default_name}-lb_listener_http"
+  })
 }
 
 ##################################################################################
