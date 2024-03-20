@@ -1,0 +1,11 @@
+aws_access_key = "ASIAW3MEELGIYOG4E72V"
+
+aws_secret_key = "vOTTUorNHr1eHU3cfU9JWMAO2YKuwjaQ0MTGFwKo"
+
+aws_session_token = "FwoGZXIvYXdzEA8aDGu6FaAXeYM7UVE61CLFAY+Ks/NbjE0RlayiVwYY9WHrpCAe2WgirQocSg36vkn7JFCeu2GVhrBNIT2IgrqVHtskPFyaKKPzIEp8b5Pn1AE1lsSU+MyKsEG3FFKvllKtmB7bXOQGVeA9n3bWAV5oG5qXyUjqaFmiKzHeBZTU45sDw102JJZXCHxZqiMr99e0A7T5+CifLf9+1RrBXHswaLu7TGl+IdQ7dZPVqsv8ipauiSobQRkzb3vb1BDvEz0tL5cJES5Wu8vlO39sYQb9Se3WgD9fKJPA668GMi1Q+P5YGfjB4ua4ykfdow7HfWZN2eqDn3RvDmMI2GTMrQXzLHE7lECa/YiFEyA="
+
+key_name = "vockey"
+
+default_region = "us-east-1"
+
+private_key = "./labsuser.pem"
