@@ -6,6 +6,5 @@ terraform.tfstate.backup
 terraform.tfvars
 labsuser.pem
 aj
-terraform.tfvars
 wk14-64070215.zip
 wk15-64070215.zip
