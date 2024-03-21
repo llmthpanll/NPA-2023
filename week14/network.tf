@@ -15,13 +15,13 @@ resource "aws_internet_gateway" "testIGW" {
 }
 
 resource "aws_subnet" "Public" {
-  for_each = var.Public_subnet_cidr
+  count = 2
   vpc_id     = aws_vpc.testVPC.id
-  cidr_block = each.value.cidr_block
-  availability_zone = each.value.availability_zone
+  cidr_block = cidrsubnet(var.cidr_block, 8, count.index + 1)
+  availability_zone = var.az[count.index]
   map_public_ip_on_launch   = true
   depends_on = [aws_internet_gateway.testIGW]
-  tags = merge(local.default_tags,{Name = "${var.default_name}-${each.value.subnet_name}"})
+  tags = merge(local.default_tags,{Name = "${var.default_name}-Public-${count.index + 1}"})
 }
 
 resource "aws_route_table" "PublicRouteTable" {
@@ -35,7 +35,7 @@ resource "aws_route_table" "PublicRouteTable" {
 
 resource "aws_route_table_association" "Public1RouteTableAssociation" {
   count = length(var.Public_subnet_cidr)
-  subnet_id      = aws_subnet.Public["Public${count.index + 1}"].id
+  subnet_id      = aws_subnet.Public[count.index].id
   route_table_id = aws_route_table.PublicRouteTable.id
 }
 

@@ -6,7 +6,7 @@ resource "aws_instance" "Server" {
   ami                    = data.aws_ami.aws-linux.id
   instance_type          = "t2.micro"
   key_name               = var.key_name
-  subnet_id              = aws_subnet.Public["Public${count.index + 1}"].id
+  subnet_id              = aws_subnet.Public[count.index].id
   vpc_security_group_ids = [aws_security_group.AllowSSHandWeb.id]
 
   root_block_device {

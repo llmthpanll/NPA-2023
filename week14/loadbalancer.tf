@@ -3,7 +3,7 @@ resource "aws_lb" "elb-webLB" {
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.AllowSSHandWeb.id]
-  subnets                    = [aws_subnet.Public["Public1"].id, aws_subnet.Public["Public2"].id]
+  subnets                    = [aws_subnet.Public[0].id, aws_subnet.Public[1].id]
   
   enable_deletion_protection = false
   tags = merge(local.default_tags, {Name = "${var.default_name}-elb-webLB"})
